@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Briefings</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: 0.2s;
+  border-left: 5px solid #c58a4a;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+    .linha {
+      margin-bottom: 5px;
+    }
+
+    .titulo {
+      font-weight: bold;
+    }
+
+    .topo-dashboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.topo-dashboard h1 {
+  margin: 0;
+}
+
+.topo-dashboard p {
+  margin: 5px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.btn-novo {
+  background: #c58a4a;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.btn-novo:hover {
+  opacity: 0.9;
+}
+
+#lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-decoration: none !important;
+}
+
+.status-novo {
+  background: #fff1d6;
+  color: #9a5b00;
+}
+
+.status-em_andamento {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-fechado {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+  </style>
+</head>
+
+<body>
+
+ <header class="topo-dashboard">
+  <div>
+    <h1>Briefings Recebidos</h1>
+    <p>Visualize os projetos enviados pelos clientes.</p>
+  </div>
+
+  <a href="../briefing/" class="btn-novo">Novo Briefing</a>
+</header>
+
+<input 
+  type="text" 
+  id="busca" 
+  placeholder="Buscar por empresa..." 
+  style="
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  "
+>
+
+  <div id="lista"></div>
+
+  <div id="detalhes" style="
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  display: none;
+">
+  <h2>Detalhes do Briefing</h2>
+  <div id="conteudo-detalhes"></div>
+</div>
+
+  <script>
+(async () => {
+if (!localStorage.getItem("logado")) {
+  const senha = prompt("Digite a senha:");
+
+  const res = await fetch("http://localhost:3000/login-dashboard", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ senha })
+  });
+
+  if (!res.ok) {
+    alert("Senha incorreta");
+    window.location.reload();
+    return;
+  } else {
+    localStorage.setItem("logado", "true");
+  }
+}
+
+let dados = [];
+
+async function carregarBriefings() {
+  const res = await fetch("http://localhost:3000/briefings");
+  dados = await res.json();
+  renderizar(dados);
+}
+
+function renderizar(listaFiltrada) {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  listaFiltrada.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.onclick = () => {
+      const box = document.getElementById("detalhes");
+      const conteudo = document.getElementById("conteudo-detalhes");
+
+      box.style.display = "block";
+
+      conteudo.innerHTML = `
+        <p><strong>Empresa:</strong> ${item.empresa}</p>
+        <p><strong>Tipo:</strong> ${item.tipo}</p>
+        <p><strong>Segmento:</strong> ${item.segmento}</p>
+
+        <p><strong>Objetivo:</strong><br>${item.objetivo}</p>
+        <p><strong>Público:</strong><br>${item.publico}</p>
+
+        <p><strong>Prazo:</strong> ${item.prazo}</p>
+        <p><strong>Orçamento:</strong> ${item.orcamento}</p>
+
+        <p><strong>Contato:</strong><br>
+        ${item.nome}<br>
+        ${item.whatsapp}
+        </p>
+      `;
+    };
+
+    div.innerHTML = `
+      <h3>${item.empresa || "Sem nome"}</h3>
+      <p>
+        <span style="background:#eee;padding:4px 10px;border-radius:6px;font-size:12px;">
+          ${item.tipo}
+        </span>
+      </p>
+      <p><strong>Orçamento:</strong> ${item.orcamento || "Não informado"}</p>
+
+<p>
+<span class="status-badge status-${item.status || 'novo'}">
+  ${(item.status || 'novo')
+    .replace('_', ' ')
+    .replace(/^./, c => c.toUpperCase())}
+</span>
+</p>
+
+<button onclick="event.stopPropagation(); alterarStatus(${item.id}, '${item.status || "novo"}')"
+  style="
+    margin-top:10px;
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#c58a4a;
+    color:white;
+    cursor:pointer;
+    font-size:12px;
+  ">
+  Mudar status
+</button>
+    `;
+    
+    
+
+    lista.appendChild(div);
+  });
+}
+
+document.getElementById("busca").addEventListener("input", function () {
+  const valor = this.value.toLowerCase();
+
+  const filtrado = dados.filter(item =>
+    (item.empresa || "").toLowerCase().includes(valor)
+  );
+
+  renderizar(filtrado);
+});
+
+carregarBriefings();
+
+async function alterarStatus(id, statusAtual) {
+  let novoStatus = "novo";
+
+  if (statusAtual === "novo") novoStatus = "em_andamento";
+  else if (statusAtual === "em_andamento") novoStatus = "fechado";
+  else novoStatus = "novo";
+
+  await fetch(`http://localhost:3000/briefing/${id}/status`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ status: novoStatus })
+  });
+
+  carregarBriefings(); // atualiza a tela
+}
+})();
+  </script>
+
+</body>
+</html>

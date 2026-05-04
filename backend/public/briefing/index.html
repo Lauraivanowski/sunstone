@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Briefing - Sunstone Sistemas</title>
+
+  <style>
+   * {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #f4f6f9 0%, #ffffff 100%);
+  margin: 0;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 50px;
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+  border: 1px solid #eee;
+}
+
+.logo-area img {
+  max-width: 140px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  margin: 0 0 10px;
+  color: #1a1a1a;
+}
+
+.container > p {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  background: #fafafa;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #c58a4a;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(197,138,74,0.12);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+form > label,
+form > input,
+form > textarea,
+form > select,
+form > div {
+  grid-column: span 2;
+}
+
+button {
+  grid-column: span 2;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #c58a4a, #a96f34);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding: 30px 22px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  form {
+    grid-template-columns: 1fr;
+  }
+
+  form > label,
+  form > input,
+  form > textarea,
+  form > select,
+  form > div,
+  button {
+    grid-column: span 1;
+  }
+}
+
+.topo-logo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.topo-logo img {
+  max-width: 140px;
+  margin: 0 auto 20px;
+  display: block;
+}
+
+.topo-logo h1 {
+  font-size: 32px;
+  margin: 0;
+  color: #1f1f1f;
+}
+
+.topo-logo p {
+  margin-top: 8px;
+  color: #777;
+  font-size: 14px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  background: #fafafa;
+  transition: 0.2s;
+  appearance: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #c58a4a;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(197,138,74,0.15);
+}
+
+select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+}
+
+label {
+  font-size: 13px;
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+}
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+<div class="topo-logo">
+  <img src="logo-sunstone.png" alt="Sunstone Sistemas">
+  <h1>Briefing</h1>
+  <p>Preencha as informações abaixo para criarmos seu projeto.</p>
+</div>
+
+    <form>
+
+      <!-- TIPO DE PROJETO -->
+      <label>Qual tipo de projeto você precisa?</label>
+      <select id="tipoProjeto" required>
+        <option value="">Selecione</option>
+        <option value="sistema">Sistema personalizado</option>
+        <option value="landing">Landing page</option>
+        <option value="site">Site institucional</option>
+      </select>
+
+      <!-- DADOS GERAIS -->
+      <label>Nome da empresa:</label>
+      <input type="text" required>
+
+      <label>Segmento:</label>
+      <input type="text">
+
+      <label>Qual o objetivo do projeto?</label>
+      <textarea placeholder="Ex: captar clientes, organizar processos..."></textarea>
+
+      <label>Quem é seu público-alvo?</label>
+      <input type="text">
+
+      <label>Você já tem algo pronto?</label>
+      <select>
+        <option>Não tenho nada</option>
+        <option>Já tenho ideia</option>
+        <option>Já tenho algo em andamento</option>
+      </select>
+
+      <label>Tem alguma referência?</label>
+      <input type="text" placeholder="Cole links aqui">
+
+      <label>Prazo desejado:</label>
+      <input type="text">
+
+      <label>Orçamento aproximado:</label>
+      <select>
+        <option>Até R$ 1.000</option>
+        <option>R$ 1.000 a R$ 3.000</option>
+        <option>R$ 3.000 a R$ 5.000</option>
+        <option>Acima de R$ 5.000</option>
+      </select>
+
+      <!-- SISTEMA -->
+      <div id="campos-sistema" style="display:none;">
+        <label>Quais funcionalidades o sistema deve ter?</label>
+        <textarea></textarea>
+
+        <label>Descreva o fluxo do sistema:</label>
+        <textarea></textarea>
+      </div>
+
+      <!-- LANDING -->
+      <div id="campos-landing" style="display:none;">
+        <label>Qual o objetivo da landing page?</label>
+        <textarea></textarea>
+
+        <label>Você já tem textos?</label>
+        <input type="text">
+      </div>
+
+      <!-- SITE -->
+      <div id="campos-site" style="display:none;">
+        <label>Quantas páginas o site deve ter?</label>
+        <input type="text">
+
+        <label>Quais seções deseja?</label>
+        <textarea></textarea>
+      </div>
+
+      <!-- CONTATO -->
+      <label>Nome</label>
+      <input type="text">
+
+      <label>WhatsApp</label>
+      <input type="text">
+
+      <label>Email</label>
+      <input type="email">
+
+      <button class="btn">Enviar briefing</button>
+
+    </form>
+  </div>
+
+  <script>
+    const select = document.getElementById("tipoProjeto");
+
+    const sistema = document.getElementById("campos-sistema");
+    const landing = document.getElementById("campos-landing");
+    const site = document.getElementById("campos-site");
+
+    select.addEventListener("change", function () {
+      sistema.style.display = "none";
+      landing.style.display = "none";
+      site.style.display = "none";
+
+      if (this.value === "sistema") sistema.style.display = "block";
+      if (this.value === "landing") landing.style.display = "block";
+      if (this.value === "site") site.style.display = "block";
+    });
+  </script>
+
+<script>
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const tipo = document.getElementById("tipoProjeto").value;
+
+    const inputs = form.querySelectorAll("input, textarea, select");
+
+    const dados = {
+      tipo,
+      empresa: inputs[1].value,
+      segmento: inputs[2].value,
+      objetivo: inputs[3].value,
+      publico: inputs[4].value,
+      referencia: inputs[6].value,
+      prazo: inputs[7].value,
+      orcamento: inputs[8].value,
+      detalhes: "", // vamos melhorar depois
+      nome: inputs[inputs.length - 3].value,
+      whatsapp: inputs[inputs.length - 2].value,
+      email: inputs[inputs.length - 1].value
+    };
+
+    try {
+      const res = await fetch("http://localhost:3000/briefing", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dados)
+      });
+
+      const resposta = await res.json();
+
+      alert("Briefing enviado com sucesso!");
+
+      form.reset();
+
+    } catch (erro) {
+      alert("Erro ao enviar briefing");
+      console.log(erro);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunstone Sistemas</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- TOPO -->
+  <header class="header">
+<div class="marca">
+  <img src="logo-sunstone.png" alt="Sunstone Sistemas" class="logo">
+
+  <div class="marca-texto">
+    <strong>Sunstone</strong>
+    <span>Sistemas</span>
+  </div>
+</div>
+
+    <nav class="menu">
+      <a href="#inicio">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-container">
+
+      <div class="hero-texto reveal">
+        <h1>
+          Transforme processos manuais em <span>sistemas inteligentes</span>
+        </h1>
+
+        <p>
+          Criamos sistemas, sites e páginas profissionais para empresas que querem organizar processos, ganhar produtividade e crescer com mais controle.
+        </p>
+
+      </div>
+
+      <div class="hero-imagem reveal">
+        <div class="frame-sistema">
+
+          <div class="badge-sistema">
+            🚀 Em desenvolvimento
+          </div>
+
+          <img src="print-sistema.png" class="print-sistema">
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="servicos" id="servicos">
+    <div class="section-header reveal">
+      <span>O que fazemos:</span>
+      <h2>Soluções digitais para empresas que precisam de organização</h2>
+    </div>
+
+    <div class="carrossel-servicos">
+  <button class="seta-carrossel seta-esquerda">‹</button>
+
+  <div class="cards-servicos" id="cards-servicos">
+
+      <div class="card-servico reveal">
+        <h3>Sistemas personalizados:</h3>
+        <p>Criamos sistemas sob medida para a rotina da sua empresa.</p>
+      </div>
+
+      <div class="card-servico reveal">
+        <h3>Automação de processos:</h3>
+        <p>Reduzimos tarefas manuais e deixamos o trabalho mais rápido.</p>
+      </div>
+
+      <div class="card-servico reveal">
+        <h3>Gestão e controle:</h3>
+        <p>Organize clientes, tarefas, documentos e informações em um só lugar.</p>
+      </div>
+
+      <div class="card-servico reveal">
+        <h3>Landing Pages:</h3>
+        <p>Criamos páginas profissionais para atrair clientes e gerar mais resultados para o seu negócio.</p>
+      </div>
+
+      <div class="card-servico reveal">
+     <h3>Criação de Sites:</h3>
+      <p>Desenvolvemos sites profissionais, modernos e responsivos para fortalecer sua presença digital.</p>
+    </div>
+
+</div>
+
+<button class="seta-carrossel seta-direita">›</button>
+</div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="cta" id="contato">
+    <div class="cta-box reveal">
+      <h2>Pronto para organizar e automatizar sua empresa?</h2>
+      <p>
+        Fale com a Sunstone Sistemas e tenha uma solução sob medida para o seu negócio.
+      </p>
+
+      <div class="botoes">
+        <a href="https://wa.me/5547991794426?text=Olá,%20vim%20pelo%20site%20da%20Sunstone%20Sistemas" class="btn" target="_blank">
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTÃO FLUTUANTE -->
+  <a href="https://wa.me/5547991794426?text=Olá,%20vim%20pelo%20site%20da%20Sunstone%20Sistemas" 
+     class="whatsapp-float" 
+     target="_blank">
+    💬
+  </a>
+
+  <!-- SCRIPT ANIMAÇÃO -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    function mostrarScroll() {
+      const windowHeight = window.innerHeight;
+
+      reveals.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+
+        if (elementTop < windowHeight - 80) {
+          el.classList.add('ativo');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', mostrarScroll);
+    mostrarScroll();
+
+  </script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const cardsServicos = document.getElementById("cards-servicos");
+    const setaEsquerda = document.querySelector(".seta-esquerda");
+    const setaDireita = document.querySelector(".seta-direita");
+
+    let intervalo = null;
+
+    function iniciar(direcao) {
+      parar();
+
+      intervalo = setInterval(function () {
+        cardsServicos.scrollLeft += direcao * 10;
+      }, 10);
+    }
+
+    function parar() {
+      if (intervalo) {
+        clearInterval(intervalo);
+        intervalo = null;
+      }
+    }
+
+    setaEsquerda.addEventListener("mouseenter", function () {
+      iniciar(-1);
+    });
+
+    setaDireita.addEventListener("mouseenter", function () {
+      iniciar(1);
+    });
+
+    setaEsquerda.addEventListener("mouseleave", parar);
+    setaDireita.addEventListener("mouseleave", parar);
+  });
+</script>
+</body>
+</html>
