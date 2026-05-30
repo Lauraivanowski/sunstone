@@ -616,3 +616,27 @@ position: relative;
   right: 0;
   background: linear-gradient(to left, #2b1a12, transparent);
 }
+
+@media (max-width: 768px) {
+  .header {
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .marca {
+    justify-content: center;
+  }
+
+  .menu {
+    position: static;
+    transform: none;
+    width: 100%;
+    justify-content: center;
+    gap: 1.8rem;
+  }
+
+  .menu a {
+    font-size: 0.9rem;
+  }
+}
